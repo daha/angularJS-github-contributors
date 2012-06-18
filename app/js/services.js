@@ -1,5 +1,4 @@
 /*globals angular */
-'use strict';
 
 /* Services */
 
