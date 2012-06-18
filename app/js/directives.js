@@ -1,4 +1,4 @@
 /*globals angular */
 
 /* Directives */
-angular.module('myApp.directives', []);
+angular.module('ghContrib.directives', []);

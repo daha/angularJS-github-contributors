@@ -2,4 +2,4 @@
 
 /* Filters */
 
-angular.module('myApp.filters', []);
+angular.module('ghContrib.filters', []);
