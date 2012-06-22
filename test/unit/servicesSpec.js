@@ -4,12 +4,12 @@
 
 describe('service', function () {
     'use strict';
-    beforeEach(module('myApp.services'));
+    beforeEach(module('ghContrib.services'));
 
 
-    describe('version', function () {
-        it('should return current version', inject(function (version) {
-            expect(version).toEqual('0.1');
-        }));
-    });
+    // describe('githubResource', function () {
+    //     it('should ....', inject(function (version) {
+    //         expect(version).toEqual('0.1');
+    //     }));
+    // });
 });
