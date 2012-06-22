@@ -4,16 +4,16 @@
 
 describe('filter', function () {
     'use strict';
-    beforeEach(module('myApp.filters'));
+    beforeEach(module('ghContrib.filters'));
 
-    describe('interpolate', function () {
-        beforeEach(module(function ($provide) {
-            $provide.value('version', 'TEST_VER');
-        }));
+    // describe('interpolate', function () {
+    //     beforeEach(module(function ($provide) {
+    //         $provide.value('version', 'TEST_VER');
+    //     }));
 
 
-        it('should replace VERSION', inject(function (interpolateFilter) {
-            expect(interpolateFilter('before %VERSION% after')).toEqual('before TEST_VER after');
-        }));
-    });
+    //     it('should replace VERSION', inject(function (interpolateFilter) {
+    //         expect(interpolateFilter('before %VERSION% after')).toEqual('before TEST_VER after');
+    //     }));
+    // });
 });

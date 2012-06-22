@@ -1,13 +1,13 @@
-/*globals describe,beforeEach,module,expect,inject,it,MyCtrl1,MyCtrl2 */
+/*globals describe,beforeEach,module,expect,inject,it,SearchCtrl,UserCtrl */
 
 /* jasmine specs for controllers go here */
 
-describe('MyCtrl1', function () {
+describe('SearchCtrl', function () {
     'use strict';
-    var myCtrl1;
+    var searchCtrl;
 
     beforeEach(function () {
-        myCtrl1 = new MyCtrl1();
+        searchCtrl = new SearchCtrl();
     });
 
 
@@ -16,13 +16,13 @@ describe('MyCtrl1', function () {
     });
 });
 
-describe('MyCtrl2', function () {
+describe('UserCtrl', function () {
     'use strict';
-    var myCtrl2;
+    var userCtrl;
 
 
     beforeEach(function () {
-        myCtrl2 = new MyCtrl2();
+        userCtrl = new UserCtrl();
     });
 
 
