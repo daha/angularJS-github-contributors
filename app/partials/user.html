@@ -1,7 +1,14 @@
-<table class="table table-striped">
+<table class="table table-striped" >
     <tr ng-repeat="repo in repos.data">
         <td>
-            {{repo.name}}
+            <a ng-click="$parent.repoSearch(repo.name)">{{repo.name}}</a>
         </td>
     </tr>
 </table>
+<hr/>
+<div>
+    <h2>Debug</h2>
+    Id: {{$id}}<br>
+    User: {{user}}<br>
+    SelectedRepo: {{selectedRepo}}<br>
+</div>
