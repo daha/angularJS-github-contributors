@@ -1,11 +1,6 @@
 /*globals angular */
 
 /* Controllers */
-function SearchCtrl() {
-    'use strict';
-}
-SearchCtrl.$inject = [];
-
 function UserCtrl($scope, githubResource, $location) {
     'use strict';
     $scope.repos = [];
@@ -13,13 +8,14 @@ function UserCtrl($scope, githubResource, $location) {
     $scope.search = "";
     $scope.repoInfo = "";
     $scope.contributors = [];
+    $scope.repoVisibility = "hide";
 
     $scope.userSearch = function () {
-        $scope.repos = githubResource.get({user: $scope.searchTerm});
-        // $location.path('/github/' + $scope.searchTerm + "/");
+        $scope.repos = githubResource.get({user: $scope.user});
+        // $location.path('/github/' + $scope.user + "/");
         // $location.replace();
         $scope.selectedRepo = "";
-        $scope.search = $scope.searchTerm;
+        $scope.search = $scope.user;
         $scope.repoInfo = "";
         $scope.contributors = [];
     };
@@ -38,14 +34,8 @@ function UserCtrl($scope, githubResource, $location) {
             "repo": repo,
             "spec": "contributors"
         });
-
+        $scope.repoVisibility = "";
 
     };
 }
 UserCtrl.$inject = ['$scope', 'githubResource', '$location'];
-
-function RepoCtrl($scope) {
-    'use strict';
-    $scope.repo = "repoCtrl";
-}
-RepoCtrl.$inject = ['$scope'];
