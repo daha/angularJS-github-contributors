@@ -1,15 +1,32 @@
 <form class="form-horizontal">
     <input type="text" ng-model="searchTerm">
-    <button class="btn" ng-click="doSearch()">
+    <button class="btn" ng-click="userSearch()">
         <i class="icon-search">
         </i>
         Search
     </button>
 </form>
+<hr/>
+<a ng-click="repoSearch('foo')">foo</a>
+<a ng-click="$window.console.log('foo');">log</a>
+<hr/>
+
 <table class="table table-striped">
     <tr ng-repeat="repo in repos.data">
         <td>
-            {{repo.name}}
+            <a ng-click="$parent.repoSearch(repo.name)">{{repo.name}}</a>
         </td>
     </tr>
 </table>
+<hr/>
+<div>
+    <h2>Debug</h2>
+    SearchTerm: {{searchTerm}}<br>
+    SelectedRepo: {{selectedRepo}}<br>
+    <div ng-controller="RepoCtrl">
+        {{repo}}<br>
+    </div>
+
+    {{repos}}
+
+</div>
