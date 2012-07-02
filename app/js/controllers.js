@@ -11,6 +11,8 @@ function UserCtrl($scope, githubResource, $location) {
     $scope.repos = [];
     $scope.selectedRepo = "";
     $scope.search = "";
+    $scope.repoInfo = "";
+    $scope.contributors = [];
 
     $scope.userSearch = function () {
         $scope.repos = githubResource.get({user: $scope.searchTerm});
@@ -18,10 +20,26 @@ function UserCtrl($scope, githubResource, $location) {
         // $location.replace();
         $scope.selectedRepo = "";
         $scope.search = $scope.searchTerm;
+        $scope.repoInfo = "";
+        $scope.contributors = [];
     };
 
     $scope.repoSearch = function (repo) {
+        $scope.repos = [];
         $scope.selectedRepo = repo;
+        $scope.repoInfo = githubResource.get({
+            "query": "repos",
+            "user": $scope.search,
+            "repo": repo
+        });
+        $scope.contributors = githubResource.get({
+            "query": "repos",
+            "user": $scope.search,
+            "repo": repo,
+            "spec": "contributors"
+        });
+
+
     };
 }
 UserCtrl.$inject = ['$scope', 'githubResource', '$location'];
