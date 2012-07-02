@@ -8,6 +8,7 @@ function UserCtrl($scope, githubResource, $location) {
     $scope.search = "";
     $scope.repoInfo = "";
     $scope.contributors = [];
+    $scope.contribVisibility = "hide";
     $scope.repoVisibility = "hide";
 
     $scope.userSearch = function () {
@@ -18,6 +19,7 @@ function UserCtrl($scope, githubResource, $location) {
         $scope.search = $scope.user;
         $scope.repoInfo = "";
         $scope.contributors = [];
+        $scope.repoVisibility = "";
     };
 
     $scope.repoSearch = function (repo) {
@@ -34,8 +36,8 @@ function UserCtrl($scope, githubResource, $location) {
             "repo": repo,
             "spec": "contributors"
         });
-        $scope.repoVisibility = "";
-
+        $scope.contribVisibility = "";
+        $scope.repoVisibility = "hide";
     };
 }
 UserCtrl.$inject = ['$scope', 'githubResource', '$location'];

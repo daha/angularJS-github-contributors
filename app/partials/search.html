@@ -7,17 +7,14 @@
     </button>
 </form>
 
-<hr/>
-
-<table class="table table-striped">
+<table class="table table-striped {{repoVisibility}}" >
     <tr ng-repeat="repo in repos.data">
         <td>
             <a ng-click="$parent.repoSearch(repo.name)">{{repo.name}}</a>
         </td>
     </tr>
 </table>
-<hr/>
-<table class="table table-striped {{repoVisibility}}">
+<table class="table table-striped {{contribVisibility}}">
     <tr>
         <th>Login</th>
         <th>Url</th>
