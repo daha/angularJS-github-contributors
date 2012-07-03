@@ -1,43 +1,7 @@
 <form class="form-horizontal">
-    <input type="text" ng-model="user">
+    <input type="text" ng-model="user" placeholder="github username">
     <button class="btn" ng-click="userSearch()">
         <i class="icon-search">
         </i>
-        Search
-    </button>
+        Show Repos    </button>
 </form>
-
-<table class="table table-striped {{repoVisibility}}" >
-    <tr ng-repeat="repo in repos.data">
-        <td>
-            <a ng-click="$parent.repoSearch(repo.name)">{{repo.name}}</a>
-        </td>
-    </tr>
-</table>
-<table class="table table-striped {{contribVisibility}}">
-    <tr>
-        <th>Login</th>
-        <th>Url</th>
-        <th>Contributions</th>
-    </tr>
-    <tr ng-repeat="contributor in contributors.data">
-        <td>
-            {{contributor.login}}
-        </td>
-        <td>
-            {{contributor.url}}
-        </td>
-        <td>
-            {{contributor.contributions}}
-        </td>
-    </tr>
-</table>
-
-<hr/>
-<div>
-    <h2>Debug</h2>
-    Id: {{$id}}<br>
-    User: {{user}}<br>
-    SelectedRepo: {{selectedRepo}}<br>
-
-</div>

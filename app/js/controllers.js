@@ -1,45 +1,6 @@
 /*globals angular */
 
 /* Controllers */
-function MainCtrl($scope, githubResource, $location) {
-    'use strict';
-    $scope.repos = [];
-    $scope.selectedRepo = "";
-    $scope.search = "";
-    $scope.repoInfo = "";
-    $scope.contributors = [];
-    $scope.contribVisibility = "hide";
-    $scope.repoVisibility = "hide";
-
-    $scope.userSearch = function () {
-        $scope.repos = githubResource.get({user: $scope.user});
-        $scope.selectedRepo = "";
-        $scope.search = $scope.user;
-        $scope.repoInfo = "";
-        $scope.contributors = [];
-        $scope.repoVisibility = "";
-    };
-
-    $scope.repoSearch = function (repo) {
-        $scope.repos = [];
-        $scope.selectedRepo = repo;
-        $scope.repoInfo = githubResource.get({
-            "query": "repos",
-            "user": $scope.search,
-            "repo": repo
-        });
-        $scope.contributors = githubResource.get({
-            "query": "repos",
-            "user": $scope.search,
-            "repo": repo,
-            "spec": "contributors"
-        });
-        $scope.contribVisibility = "";
-        $scope.repoVisibility = "hide";
-    };
-}
-MainCtrl.$inject = ['$scope', 'githubResource', '$location'];
-
 function SearchCtrl($scope, $location) {
     'use strict';
     $scope.userSearch = function () {
