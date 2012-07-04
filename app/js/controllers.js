@@ -4,9 +4,12 @@
 /* Controllers */
 function SearchCtrl($scope, $location) {
     'use strict';
+    $scope.user = "angular";
+
     $scope.userSearch = function () {
         $location.path('/github/' + $scope.user + "/");
     };
+
 }
 SearchCtrl.$inject = ['$scope', '$location'];
 
