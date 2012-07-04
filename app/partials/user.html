@@ -16,8 +16,9 @@
                     <img src="{{user_info.data.avatar_url}}" alt="{{user}}'s avatar" />
                 </span>
                 <span class="user-login">{{user}}</span>
-                <!-- TODO: remove the () if the name is empty -->
-                <span class="user-name">({{user_info.data.name}})</span>
+                <span ng-show="user_info.data.name" class="user-name">
+                    ({{user_info.data.name}})
+                </span>
             </h1>
         </div>
         <div class="stats yui3-u-1-3">
