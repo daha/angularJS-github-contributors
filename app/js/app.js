@@ -1,3 +1,4 @@
+// Copyright (c) 2012, David Haglund
 /*globals angular,SearchCtrl,UserCtrl,RepoCtrl */
 
 // Declare app level module which depends on filters, and services

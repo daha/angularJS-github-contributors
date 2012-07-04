@@ -1,3 +1,4 @@
+// Copyright (c) 2012, David Haglund
 /*globals angular */
 
 /* Services */
