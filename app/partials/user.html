@@ -11,9 +11,7 @@
         <div class="info yui3-u-2-3">
             <h1>
                 <span class="avatar user-avatar">
-                    <!-- TODO: Find a way to not get a error on the image source
-                               before the user_info has been loaded -->
-                    <img src="{{user_info.data.avatar_url}}" alt="{{user}}'s avatar" />
+                    <img ng-src="{{user_info.data.avatar_url}}" alt="{{user}}'s avatar" />
                 </span>
                 <span class="user-login">{{user}}</span>
                 <span ng-show="user_info.data.name" class="user-name">
