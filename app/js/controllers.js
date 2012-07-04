@@ -15,6 +15,7 @@ SearchCtrl.$inject = ['$scope', '$location'];
 
 function UserCtrl($scope, $location, $routeParams, githubResource) {
     'use strict';
+    $scope.user_info = githubResource.get({user: $routeParams.user, repo: ''});
     $scope.repos = githubResource.get({user: $routeParams.user});
     $scope.user = $routeParams.user;
 
