@@ -19,6 +19,19 @@ function UserCtrl($scope, $location, $routeParams, githubResource) {
     $scope.repos = githubResource.get({user: $routeParams.user});
     $scope.user = $routeParams.user;
 
+    $scope.forkForms = {
+        '1': 'Fork',
+        'other': 'Forks'
+    };
+    $scope.publicRepoForms = {
+        '1': 'Public repo',
+        'other': 'Public repo'
+    };
+    $scope.followerForms = {
+        '1': 'Follower',
+        'other': 'Followers'
+    };
+
     $scope.repoSearch = function (repo) {
         $location.path(['', 'github', $scope.user, repo, '' ].join('/'));
     };

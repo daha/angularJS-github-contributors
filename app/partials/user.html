@@ -24,14 +24,12 @@
             <ul class="yui3-g">
                 <li class="user-repos yui3-u-1-2">
                     <b>{{user_info.data.public_repos}}</b>
-                    <ng-pluralize count="user_info.data.public_repos"
-                    when="{'1': 'Public repo', 'other': 'Public repos'}">
+                    <ng-pluralize count="user_info.data.public_repos" when="publicRepoForms">
                     </ng-pluralize>
                 </li>
                 <li class="user-followers yui3-u-1-2">
                     <b>{{user_info.data.followers}}</b>
-                    <ng-pluralize count="user_info.data.followers"
-                    when="{'1': 'Follower', 'other': 'Followers'}">
+                    <ng-pluralize count="user_info.data.followers" when="followerForms">
                     </ng-pluralize>
                 </li>
             </ul>
@@ -40,9 +38,8 @@
     <div>
         <h2 class="no-toc">Public Repositories</h2>
 
-        <!-- TODO: Sort the list based on number of watchers -->
         <ul class="repos">
-            <li ng-repeat="repo in repos.data" class="repo yui3-g">
+            <li ng-repeat="repo in repos.data | orderBy:'watchers':'reverse'" class="repo yui3-g">
                 <div class="repo-name yui3-u-2-3">
                     <h3 class="no-toc">
                         <a href="#/github/{{repo.owner.login}}/{{repo.name}}/">{{repo.name}}</a>
@@ -61,8 +58,7 @@
                         <li class="repo-forks yui3-u-1-3">
                             <b>{{repo.forks}}</b>
                             <span>
-                                <ng-pluralize count="repo.forks"
-                                    when="{'1': 'Fork', 'other': 'Forks'}">
+                                <ng-pluralize count="repo.forks" when="forkForms">
                                 </ng-pluralize>
                             </span>
                         </li>
