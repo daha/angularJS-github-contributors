@@ -1,0 +1,35 @@
+<div ng-controller="RepoListCtrl">
+    <h2 class="no-toc">Public Repositories</h2>
+
+    <ul class="repos">
+        <li ng-repeat="repo in repos.data | orderBy:'-watchers'" class="repo yui3-g">
+            <div class="repo-name yui3-u-2-3">
+                <h3 class="no-toc">
+                    <a href="#/github/{{repo.owner.login}}/{{repo.name}}/">{{repo.name}}</a>
+                </h3>
+                <p class="repo-desc">{{repo.description}}</p>
+            </div>
+            <div class="repo-stats yui3-u-1-3">
+                <ul class="yui3-g">
+                    <li class="repo-lang yui3-u-1-3">
+                        <b>{{repo.language}}</b>
+                    </li>
+                    <li class="repo-watchers yui3-u-1-3">
+                        <b>{{repo.watchers}}</b>
+                        <span>
+                            <ng-pluralize count="repo.watchers" when="watchForms">
+                            </ng-pluralize>
+                        </span>
+                    </li>
+                    <li class="repo-forks yui3-u-1-3">
+                        <b>{{repo.forks}}</b>
+                        <span>
+                            <ng-pluralize count="repo.forks" when="forkForms">
+                            </ng-pluralize>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</div>

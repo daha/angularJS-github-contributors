@@ -4,20 +4,36 @@
 /* Controllers */
 function SearchCtrl($scope, $location) {
     'use strict';
+
     $scope.user = "angular";
 
     $scope.userSearch = function () {
-        $location.path('/github/' + $scope.user + "/");
+        $location.path(['', 'github', $scope.user, ''].join('/'));
     };
-
 }
 SearchCtrl.$inject = ['$scope', '$location'];
 
-function UserCtrl($scope, $location, $routeParams, githubResource) {
+function RepoListCtrl($scope, $routeParams, githubResource) {
     'use strict';
-    $scope.user_info = githubResource.get({user: $routeParams.user, repo: ''});
+
     $scope.repos = githubResource.get({user: $routeParams.user});
     $scope.user = $routeParams.user;
+
+    $scope.watchForms = {
+        '1': 'Watcher',
+        'other': 'Watchers'
+    };
+    $scope.forkForms = {
+        '1': 'Fork',
+        'other': 'Forks'
+    };
+}
+RepoListCtrl.$inject = ['$scope', '$routeParams', 'githubResource'];
+
+function UserCtrl($scope, $routeParams, githubResource) {
+    'use strict';
+
+    $scope.user_info = githubResource.get({user: $routeParams.user, repo: ''});
 
     $scope.publicRepoForms = {
         '1': 'Public repo',
@@ -27,25 +43,12 @@ function UserCtrl($scope, $location, $routeParams, githubResource) {
         '1': 'Follower',
         'other': 'Followers'
     };
-    $scope.watchForms = {
-        '1': 'Watcher',
-        'other': 'Watchers'
-    };
-
-    $scope.forkForms = {
-        '1': 'Fork',
-        'other': 'Forks'
-    };
-
-
-    $scope.repoSearch = function (repo) {
-        $location.path(['', 'github', $scope.user, repo, '' ].join('/'));
-    };
 }
-UserCtrl.$inject = ['$scope', '$location', '$routeParams', 'githubResource'];
+UserCtrl.$inject = ['$scope', '$routeParams', 'githubResource'];
 
-function RepoCtrl($scope, $location, $routeParams, githubResource) {
+function RepoCtrl($scope, $routeParams, githubResource) {
     'use strict';
+
     $scope.contributors = githubResource.get({
         "query": "repos",
         "user": $routeParams.user,
@@ -53,4 +56,4 @@ function RepoCtrl($scope, $location, $routeParams, githubResource) {
         "spec": "contributors"
     });
 }
-RepoCtrl.$inject = ['$scope', '$location', '$routeParams', 'githubResource'];
+RepoCtrl.$inject = ['$scope', '$routeParams', 'githubResource'];
