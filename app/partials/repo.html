@@ -1,18 +1,36 @@
-<table class="table table-striped">
-    <tr>
-        <th>Login</th>
-        <th>Url</th>
-        <th>Contributions</th>
-    </tr>
-    <tr ng-repeat="contributor in contributors.data">
-        <td>
-            {{contributor.login}}
-        </td>
-        <td>
-            {{contributor.url}}
-        </td>
-        <td>
-            {{contributor.contributions}}
-        </td>
-    </tr>
-</table>
+<div ng-controller="RepoCtrl">
+   <div class="yui3-g">
+        <p class="back yui3-u-1-2">
+            <a ng-href="#/github/{{repoInfo.data.owner.login}}/">« Select Repository</a>
+        </p>
+        <p class="view-on-github yui3-u-1-2">
+            <a ng-href="{{repoInfo.data.html_url}}">View on GitHub</a>
+        </p>
+    </div>
+
+    <div class="yui3-g">
+        <div class="info yui3-u-2-3">
+            <h1>
+                <span class="avatar user-avatar">
+                    <img ng-src="{{repoInfo.data.owner.avatar_url}}" alt="{{repoInfo.data.owner.login}}'s avatar" />
+                </span>
+                <span class="user-login">{{repoInfo.data.owner.login}}</span> /
+                <span class="repo-name">{{repoInfo.data.name}}</span>
+            </h1>
+        </div>
+        <div class="stats yui3-u-1-3">
+            <ul class="yui3-g">
+                <li class="repo-watchers yui3-u-1-2">
+                    <b>{{repoInfo.data.watchers}}</b>
+                    <ng-pluralize count="repoInfo.data.watchers" when="watchForms">
+                    </ng-pluralize>
+                </li>
+                <li class="repo-forks yui3-u-1-2">
+                    <b>{{repoInfo.data.forks}}</b>
+                    <ng-pluralize count="repoInfo.data.forks" when="forkForms">
+                    </ng-pluralize>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

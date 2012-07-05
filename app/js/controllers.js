@@ -2,6 +2,16 @@
 /*globals angular */
 
 /* Controllers */
+
+var watchForms = {
+        '1': 'Watcher',
+        'other': 'Watchers'
+    },
+    forkForms = {
+        '1': 'Fork',
+        'other': 'Forks'
+    };
+
 function SearchCtrl($scope, $location) {
     'use strict';
 
@@ -19,14 +29,8 @@ function RepoListCtrl($scope, $routeParams, githubResource) {
     $scope.repos = githubResource.get({user: $routeParams.user});
     $scope.user = $routeParams.user;
 
-    $scope.watchForms = {
-        '1': 'Watcher',
-        'other': 'Watchers'
-    };
-    $scope.forkForms = {
-        '1': 'Fork',
-        'other': 'Forks'
-    };
+    $scope.watchForms = watchForms;
+    $scope.forkForms = forkForms;
 }
 RepoListCtrl.$inject = ['$scope', '$routeParams', 'githubResource'];
 
@@ -49,6 +53,20 @@ UserCtrl.$inject = ['$scope', '$routeParams', 'githubResource'];
 function RepoCtrl($scope, $routeParams, githubResource) {
     'use strict';
 
+    $scope.repoInfo = githubResource.get({
+        "query": "repos",
+        "user": $routeParams.user,
+        "repo": $routeParams.repo
+    });
+
+    $scope.watchForms = watchForms;
+    $scope.forkForms = forkForms;
+}
+RepoCtrl.$inject = ['$scope', '$routeParams', 'githubResource'];
+
+function ContribListCtrl($scope, $routeParams, githubResource) {
+    'use strict';
+
     $scope.contributors = githubResource.get({
         "query": "repos",
         "user": $routeParams.user,
@@ -56,4 +74,4 @@ function RepoCtrl($scope, $routeParams, githubResource) {
         "spec": "contributors"
     });
 }
-RepoCtrl.$inject = ['$scope', '$routeParams', 'githubResource'];
+ContribListCtrl.$inject = ['$scope', '$routeParams', 'githubResource'];

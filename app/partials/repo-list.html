@@ -1,0 +1,17 @@
+<div ng-controller="ContribListCtrl">
+    <div>
+        <h2 class="no-toc">Project Contributors ({{contributors.data.length}})</h2>
+
+        <ul class="contributors">
+            <li class="contributor" ng-repeat="contributor in contributors.data">
+                <!-- TODO: Pluralization in the title of Contributor -->
+                <a class="avatar" ng-href="#/github/{{contributor.login}}/"
+                        title="{{contributor.login}} has {{contributor.contributions}} Contributors">
+                    <img alt="{{contributor.login}}'s avatar" ng-src="{{contributor.avatar_url}}" />
+                    <span class="contributor-name">{{contributor.login}}</span>
+                    <span class="contributor-contributions">{{contributor.contributions}}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

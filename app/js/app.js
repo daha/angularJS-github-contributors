@@ -1,5 +1,5 @@
 // Copyright (c) 2012, David Haglund
-/*globals angular,SearchCtrl,RepoListCtrl,RepoCtrl */
+/*globals angular,SearchCtrl */
 
 // Declare app level module which depends on filters, and services
 angular.module('ghContrib', ['ghContrib.filters', 'ghContrib.services', 'ghContrib.directives']).
@@ -13,8 +13,7 @@ angular.module('ghContrib', ['ghContrib.filters', 'ghContrib.services', 'ghContr
             templateUrl: 'partials/user-page.html'
         });
         $routeProvider.when('/github/:user/:repo/', {
-            templateUrl: 'partials/repo.html',
-            controller: RepoCtrl
+            templateUrl: 'partials/repo-page.html'
         });
         $routeProvider.otherwise({
             redirectTo: '/'
