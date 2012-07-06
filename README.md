@@ -13,3 +13,5 @@ Known differenses between the original version and this version in
 * One more json query to GitHub, 4 instead of 3.
 * Fewer lines of javascript code, 91 compared to 387, excluding lines
   with comments and empty lines!
+
+View the app [AngularJS GitHub Contributors](http://daha.github.com/angularJS-github-contributors).
