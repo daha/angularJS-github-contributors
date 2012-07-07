@@ -23,8 +23,7 @@ describe('GitHub Contributors controllers', function () {
     function createControllerAndVerifyRequestAndModel(httpBackend,
         routeParams, controller, scope, buildQuery, Controller,
         user, model, fakeData) {
-        var fakeResponse = {'data': fakeData},
-            ctrl;
+        var fakeResponse = {'data': fakeData};
 
         httpBackend.expectJSONP(buildQuery(user)).
             respond(fakeResponse);
@@ -213,6 +212,41 @@ describe('GitHub Contributors controllers', function () {
             function () {
                 verifyRequestAndModel(anotherUser, 'repoInfo', otherFakeData);
             });
+    });
 
+    describe('ContribListCtrl', function () {
+        beforeEach(module('ghContrib.services'));
+
+        beforeEach(inject(
+            function ($rootScope, $controller, $routeParams, $httpBackend) {
+                buildQuery = function (user) {
+                    return 'https://api.github.com/repos/' +
+                        user + '/' + testRepo + '/contributors' +
+                        '?callback=JSON_CALLBACK&per_page=100';
+                };
+                rootScope = $rootScope;
+                scope = $rootScope.$new();
+                httpBackend = $httpBackend;
+                controller = $controller;
+                routeParams = $routeParams;
+                httpBackend.whenJSONP(buildQuery(testUser)).respond({});
+                routeParams.user = testUser;
+                routeParams.repo = testRepo;
+                ctrl = controller(ContribListCtrl, {$scope: scope});
+                httpBackend.flush(1);
+                verifyRequestAndModel = buildVerifyRequestAndModel(httpBackend,
+                    routeParams, controller, scope, buildQuery, ContribListCtrl);
+            }
+        ));
+
+        it('should request for user data when created and store it in repos',
+            function () {
+                verifyRequestAndModel(testUser, 'contributors', fakeData);
+            });
+
+        it('should not use hardcoded requests or data in repos',
+            function () {
+                verifyRequestAndModel(anotherUser, 'contributors', otherFakeData);
+            });
     });
 });
