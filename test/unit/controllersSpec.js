@@ -20,26 +20,22 @@ describe('GitHub Contributors controllers', function () {
         fakeData = ['resonse one'],
         otherFakeData = ['another respone'];
 
-    function createControllerAndVerifyRequestAndModel(httpBackend,
-        routeParams, controller, scope, buildQuery, Controller,
-        user, model, fakeData) {
-        var fakeResponse = {'data': fakeData};
+    function createControllerAndVerifyRequestAndModel(query, Controller,
+        user, model, data) {
+        var fakeResponse = {'data': data};
 
-        httpBackend.expectJSONP(buildQuery(user)).
-            respond(fakeResponse);
+        httpBackend.expectJSONP(query).respond(fakeResponse);
         routeParams.user = user;
         ctrl = controller(Controller, {$scope: scope});
         httpBackend.flush(1);
-        expect(scope[model].data).toEqual(fakeData);
+        expect(scope[model].data).toEqual(data);
 
         httpBackend.verifyNoOutstandingRequest();
     }
 
-    function buildVerifyRequestAndModel(httpBackend, routeParams, controller,
-        scope, buildQuery, Controller) {
-        return function (user, model, fakeData) {
-            createControllerAndVerifyRequestAndModel(httpBackend,
-                routeParams, controller, scope, buildQuery, Controller,
+    function buildVerifyRequestAndModel(Controller) {
+        return function (query, user, model, fakeData) {
+            createControllerAndVerifyRequestAndModel(query, Controller,
                 user, model, fakeData);
         };
     }
@@ -49,13 +45,22 @@ describe('GitHub Contributors controllers', function () {
         expect(scope[model].other).toEqual(other);
     }
 
+    beforeEach(module('ghContrib.services'));
+    beforeEach(inject(
+        function ($rootScope, $controller, $routeParams, $httpBackend) {
+            rootScope = $rootScope;
+            scope = $rootScope.$new();
+            httpBackend = $httpBackend;
+            controller = $controller;
+            routeParams = $routeParams;
+        }
+    ));
+
     describe('SearchCtrl', function () {
         var location;
-
-        beforeEach(inject(function ($rootScope, $controller, $location) {
-            scope = $rootScope.$new();
+        beforeEach(inject(function ($location) {
             location = $location;
-            ctrl = $controller(SearchCtrl, {$scope: scope});
+            ctrl = controller(SearchCtrl, {$scope: scope});
         }));
 
         it('should initialize the user', function () {
@@ -77,26 +82,18 @@ describe('GitHub Contributors controllers', function () {
     });
 
     describe('UserCtrl', function () {
-        beforeEach(module('ghContrib.services'));
 
-        beforeEach(inject(
-            function ($rootScope, $controller, $routeParams, $httpBackend) {
-                buildQuery = function (user) {
-                    return 'https://api.github.com/users/' + user +
-                        '?callback=JSON_CALLBACK&per_page=100';
-                };
-                scope = $rootScope.$new();
-                httpBackend = $httpBackend;
-                controller = $controller;
-                routeParams = $routeParams;
-                httpBackend.whenJSONP(buildQuery(testUser)).respond({});
-                routeParams.user = testUser;
-                ctrl = controller(UserCtrl, {$scope: scope});
-                httpBackend.flush(1);
-                verifyRequestAndModel = buildVerifyRequestAndModel(httpBackend,
-                    routeParams, controller, scope, buildQuery, UserCtrl);
-            }
-        ));
+        beforeEach(function () {
+            buildQuery = function (user) {
+                return 'https://api.github.com/users/' + user +
+                    '?callback=JSON_CALLBACK&per_page=100';
+            };
+            httpBackend.whenJSONP(buildQuery(testUser)).respond({});
+            routeParams.user = testUser;
+            ctrl = controller(UserCtrl, {$scope: scope});
+            httpBackend.flush(1);
+            verifyRequestAndModel = buildVerifyRequestAndModel(UserCtrl);
+        });
 
         it('should define pluralization for Public repo', function () {
             verifyForms(scope, 'publicRepoForms', 'Public repo', 'Public repos');
@@ -108,37 +105,30 @@ describe('GitHub Contributors controllers', function () {
 
         it('should request for user data when created and store it in user_info',
             function () {
-                verifyRequestAndModel(testUser, 'user_info', fakeData);
+                verifyRequestAndModel(buildQuery(testUser), testUser,
+                    'user_info', fakeData);
             });
 
         it('should not use hardcoded requests or data in user_info',
             function () {
-                verifyRequestAndModel(anotherUser, 'user_info', otherFakeData);
+                verifyRequestAndModel(buildQuery(anotherUser), anotherUser,
+                    'user_info', otherFakeData);
             });
     });
 
     describe('RepoListCtrl', function () {
-        beforeEach(module('ghContrib.services'));
 
-        beforeEach(inject(
-            function ($rootScope, $controller, $routeParams, $httpBackend) {
-                buildQuery = function (user) {
-                    return 'https://api.github.com/users/' + user + '/repos' +
-                        '?callback=JSON_CALLBACK&per_page=100';
-                };
-                rootScope = $rootScope;
-                scope = $rootScope.$new();
-                httpBackend = $httpBackend;
-                controller = $controller;
-                routeParams = $routeParams;
-                httpBackend.whenJSONP(buildQuery(testUser)).respond({});
-                routeParams.user = testUser;
-                ctrl = controller(RepoListCtrl, {$scope: scope});
-                httpBackend.flush(1);
-                verifyRequestAndModel = buildVerifyRequestAndModel(httpBackend,
-                    routeParams, controller, scope, buildQuery, RepoListCtrl);
-            }
-        ));
+        beforeEach(function () {
+            buildQuery = function (user) {
+                return 'https://api.github.com/users/' + user + '/repos' +
+                    '?callback=JSON_CALLBACK&per_page=100';
+            };
+            httpBackend.whenJSONP(buildQuery(testUser)).respond({});
+            routeParams.user = testUser;
+            ctrl = controller(RepoListCtrl, {$scope: scope});
+            httpBackend.flush(1);
+            verifyRequestAndModel = buildVerifyRequestAndModel(RepoListCtrl);
+        });
 
         it('should define pluralization for Watcher', function () {
             verifyForms(scope, 'watchForms', 'Watcher', 'Watchers');
@@ -161,39 +151,31 @@ describe('GitHub Contributors controllers', function () {
 
         it('should request for user data when created and store it in repos',
             function () {
-                verifyRequestAndModel(testUser, 'repos', fakeData);
+                verifyRequestAndModel(buildQuery(testUser), testUser,
+                    'repos', fakeData);
             });
 
         it('should not use hardcoded requests or data in repos',
             function () {
-                verifyRequestAndModel(anotherUser, 'repos', otherFakeData);
+                verifyRequestAndModel(buildQuery(anotherUser), anotherUser,
+                    'repos', otherFakeData);
             });
     });
 
     describe('RepoCtrl', function () {
-        beforeEach(module('ghContrib.services'));
-
-        beforeEach(inject(
-            function ($rootScope, $controller, $routeParams, $httpBackend) {
-                buildQuery = function (user) {
-                    return 'https://api.github.com/repos/' +
-                        user + '/' + testRepo +
-                        '?callback=JSON_CALLBACK&per_page=100';
-                };
-                rootScope = $rootScope;
-                scope = $rootScope.$new();
-                httpBackend = $httpBackend;
-                controller = $controller;
-                routeParams = $routeParams;
-                httpBackend.whenJSONP(buildQuery(testUser)).respond({});
-                routeParams.user = testUser;
-                routeParams.repo = testRepo;
-                ctrl = controller(RepoCtrl, {$scope: scope});
-                httpBackend.flush(1);
-                verifyRequestAndModel = buildVerifyRequestAndModel(httpBackend,
-                    routeParams, controller, scope, buildQuery, RepoCtrl);
-            }
-        ));
+        beforeEach(function () {
+            buildQuery = function (user) {
+                return 'https://api.github.com/repos/' +
+                    user + '/' + testRepo +
+                    '?callback=JSON_CALLBACK&per_page=100';
+            };
+            httpBackend.whenJSONP(buildQuery(testUser)).respond({});
+            routeParams.user = testUser;
+            routeParams.repo = testRepo;
+            ctrl = controller(RepoCtrl, {$scope: scope});
+            httpBackend.flush(1);
+            verifyRequestAndModel = buildVerifyRequestAndModel(RepoCtrl);
+        });
 
         it('should define pluralization for Watcher', function () {
             verifyForms(scope, 'watchForms', 'Watcher', 'Watchers');
@@ -205,48 +187,43 @@ describe('GitHub Contributors controllers', function () {
 
         it('should request for user data when created and store it in repos',
             function () {
-                verifyRequestAndModel(testUser, 'repoInfo', fakeData);
+                verifyRequestAndModel(buildQuery(testUser), testUser,
+                    'repoInfo', fakeData);
             });
 
         it('should not use hardcoded requests or data in repos',
             function () {
-                verifyRequestAndModel(anotherUser, 'repoInfo', otherFakeData);
+                verifyRequestAndModel(buildQuery(anotherUser), anotherUser,
+                    'repoInfo', otherFakeData);
             });
     });
 
     describe('ContribListCtrl', function () {
-        beforeEach(module('ghContrib.services'));
 
-        beforeEach(inject(
-            function ($rootScope, $controller, $routeParams, $httpBackend) {
-                buildQuery = function (user) {
-                    return 'https://api.github.com/repos/' +
-                        user + '/' + testRepo + '/contributors' +
-                        '?callback=JSON_CALLBACK&per_page=100';
-                };
-                rootScope = $rootScope;
-                scope = $rootScope.$new();
-                httpBackend = $httpBackend;
-                controller = $controller;
-                routeParams = $routeParams;
-                httpBackend.whenJSONP(buildQuery(testUser)).respond({});
-                routeParams.user = testUser;
-                routeParams.repo = testRepo;
-                ctrl = controller(ContribListCtrl, {$scope: scope});
-                httpBackend.flush(1);
-                verifyRequestAndModel = buildVerifyRequestAndModel(httpBackend,
-                    routeParams, controller, scope, buildQuery, ContribListCtrl);
-            }
-        ));
+        beforeEach(function () {
+            buildQuery = function (user) {
+                return 'https://api.github.com/repos/' +
+                    user + '/' + testRepo + '/contributors' +
+                    '?callback=JSON_CALLBACK&per_page=100';
+            };
+            httpBackend.whenJSONP(buildQuery(testUser)).respond({});
+            routeParams.user = testUser;
+            routeParams.repo = testRepo;
+            ctrl = controller(ContribListCtrl, {$scope: scope});
+            httpBackend.flush(1);
+            verifyRequestAndModel = buildVerifyRequestAndModel(ContribListCtrl);
+        });
 
         it('should request for user data when created and store it in repos',
             function () {
-                verifyRequestAndModel(testUser, 'contributors', fakeData);
+                verifyRequestAndModel(buildQuery(testUser), testUser,
+                    'contributors', fakeData);
             });
 
         it('should not use hardcoded requests or data in repos',
             function () {
-                verifyRequestAndModel(anotherUser, 'contributors', otherFakeData);
+                verifyRequestAndModel(buildQuery(anotherUser), anotherUser,
+                    'contributors', otherFakeData);
             });
     });
 });
