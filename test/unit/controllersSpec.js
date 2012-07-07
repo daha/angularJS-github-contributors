@@ -12,7 +12,14 @@ describe('GitHub Contributors controllers', function () {
         testRepo = "angular",
         anotherRepo = "baz",
         fakeData = ['resonse one'],
-        otherFakeData = ['another respone'];
+        otherFakeData = ['another respone'],
+        baseUrl = 'https://api.github.com/',
+        queryParams = '?callback=JSON_CALLBACK&per_page=100';
+
+    function createController(Controller) {
+        ctrl = controller(Controller, {$scope: scope});
+        httpBackend.flush(1);
+    }
 
     function createControllerAndVerifyRequestAndModel(query, Controller,
         user, model, data) {
@@ -20,8 +27,7 @@ describe('GitHub Contributors controllers', function () {
 
         httpBackend.expectJSONP(query).respond(fakeResponse);
         routeParams.user = user;
-        ctrl = controller(Controller, {$scope: scope});
-        httpBackend.flush(1);
+        createController(Controller);
         expect(scope[model].data).toEqual(data);
 
         httpBackend.verifyNoOutstandingRequest();
@@ -76,16 +82,13 @@ describe('GitHub Contributors controllers', function () {
     });
 
     describe('UserCtrl', function () {
-
         beforeEach(function () {
             buildQuery = function (user) {
-                return 'https://api.github.com/users/' + user +
-                    '?callback=JSON_CALLBACK&per_page=100';
+                return baseUrl + 'users/' + user + queryParams;
             };
             httpBackend.whenJSONP(buildQuery(testUser)).respond({});
             routeParams.user = testUser;
-            ctrl = controller(UserCtrl, {$scope: scope});
-            httpBackend.flush(1);
+            createController(UserCtrl);
             verifyRequestAndModel = buildVerifyRequestAndModel(UserCtrl);
         });
 
@@ -111,16 +114,13 @@ describe('GitHub Contributors controllers', function () {
     });
 
     describe('RepoListCtrl', function () {
-
         beforeEach(function () {
             buildQuery = function (user) {
-                return 'https://api.github.com/users/' + user + '/repos' +
-                    '?callback=JSON_CALLBACK&per_page=100';
+                return baseUrl + 'users/' + user + '/repos' + queryParams;
             };
             httpBackend.whenJSONP(buildQuery(testUser)).respond({});
             routeParams.user = testUser;
-            ctrl = controller(RepoListCtrl, {$scope: scope});
-            httpBackend.flush(1);
+            createController(RepoListCtrl);
             verifyRequestAndModel = buildVerifyRequestAndModel(RepoListCtrl);
         });
 
@@ -138,8 +138,7 @@ describe('GitHub Contributors controllers', function () {
 
             routeParams.user = anotherUser;
             scope = rootScope.$new();
-            ctrl = controller(RepoListCtrl, {$scope: scope});
-            httpBackend.flush(1);
+            createController(RepoListCtrl);
             expect(scope.user).toEqual(anotherUser);
         });
 
@@ -159,15 +158,12 @@ describe('GitHub Contributors controllers', function () {
     describe('RepoCtrl', function () {
         beforeEach(function () {
             buildQuery = function (user, repo) {
-                return 'https://api.github.com/repos/' +
-                    user + '/' + repo +
-                    '?callback=JSON_CALLBACK&per_page=100';
+                return baseUrl + 'repos/' + user + '/' + repo + queryParams;
             };
             httpBackend.whenJSONP(buildQuery(testUser, testRepo)).respond({});
             routeParams.user = testUser;
             routeParams.repo = testRepo;
-            ctrl = controller(RepoCtrl, {$scope: scope});
-            httpBackend.flush(1);
+            createController(RepoCtrl);
             verifyRequestAndModel = buildVerifyRequestAndModel(RepoCtrl);
         });
 
@@ -194,18 +190,15 @@ describe('GitHub Contributors controllers', function () {
     });
 
     describe('ContribListCtrl', function () {
-
         beforeEach(function () {
             buildQuery = function (user, repo) {
-                return 'https://api.github.com/repos/' +
-                    user + '/' + repo + '/contributors' +
-                    '?callback=JSON_CALLBACK&per_page=100';
+                return baseUrl + 'repos/' + user + '/' + repo +
+                    '/contributors' + queryParams;
             };
             httpBackend.whenJSONP(buildQuery(testUser, testRepo)).respond({});
             routeParams.user = testUser;
             routeParams.repo = testRepo;
-            ctrl = controller(ContribListCtrl, {$scope: scope});
-            httpBackend.flush(1);
+            createController(ContribListCtrl);
             verifyRequestAndModel = buildVerifyRequestAndModel(ContribListCtrl);
         });
 
