@@ -2,31 +2,47 @@
 
 /* jasmine specs for controllers go here */
 
-describe('SearchCtrl', function () {
+describe('GitHub Contributors controllers', function () {
     'use strict';
-    var searchCtrl;
+    describe('SearchCtrl', function () {
+        var searchCtrl, scope, location;
 
-    beforeEach(function () {
-        searchCtrl = new SearchCtrl();
+        beforeEach(inject(function ($rootScope, $controller, $location) {
+            scope = $rootScope.$new();
+            location = $location;
+            searchCtrl = $controller(SearchCtrl, {$scope: scope});
+        }));
+
+        it('should initialize the user', function () {
+            expect(scope.user).toEqual('angular');
+        });
+
+        it('should update the url on search', function () {
+            var user1 = 'foo',
+                user2 = 'bar';
+            scope.user = user1;
+            scope.userSearch();
+
+            expect(location.path()).toEqual('/github/' + user1 + '/');
+
+            scope.user = user2;
+            scope.userSearch();
+            expect(location.path()).toEqual('/github/' + user2 + '/');
+        });
     });
 
+    // describe('UserCtrl', function () {
+    //     var userCtrl;
 
-    it('should ....', function () {
-        //spec body
-    });
-});
+    //     beforeEach(module('ghContrib.services'));
 
-describe('UserCtrl', function () {
-    'use strict';
-    var userCtrl;
-
-
-    beforeEach(function () {
-        userCtrl = new UserCtrl();
-    });
+    //     beforeEach(function () {
+    //         userCtrl = new UserCtrl();
+    //     });
 
 
-    it('should ....', function () {
-        //spec body
-    });
-});
+    //     it('should ....', function () {
+    //         //spec body
+    //     });
+    // });
+})
