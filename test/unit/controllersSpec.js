@@ -5,8 +5,18 @@
 
 describe('GitHub Contributors controllers', function () {
     'use strict';
-    var testUser = 'foo',
+    var rootScope,
+        scope,
+        controller,
+        httpBackend,
+        routeParams,
+        buildQuery,
+        ctrl,
+        verifyRequestAndModel,
+        testUser = 'foo',
         anotherUser = 'bar',
+        testRepo = "angular",
+        anotherRepo = "baz",
         fakeData = ['resonse one'],
         otherFakeData = ['another respone'];
 
@@ -41,12 +51,12 @@ describe('GitHub Contributors controllers', function () {
     }
 
     describe('SearchCtrl', function () {
-        var searchCtrl, scope, location;
+        var location;
 
         beforeEach(inject(function ($rootScope, $controller, $location) {
             scope = $rootScope.$new();
             location = $location;
-            searchCtrl = $controller(SearchCtrl, {$scope: scope});
+            ctrl = $controller(SearchCtrl, {$scope: scope});
         }));
 
         it('should initialize the user', function () {
@@ -68,14 +78,6 @@ describe('GitHub Contributors controllers', function () {
     });
 
     describe('UserCtrl', function () {
-        var scope,
-            controller,
-            httpBackend,
-            routeParams,
-            buildQuery,
-            userCtrl,
-            verifyRequestAndModel;
-
         beforeEach(module('ghContrib.services'));
 
         beforeEach(inject(
@@ -90,7 +92,7 @@ describe('GitHub Contributors controllers', function () {
                 routeParams = $routeParams;
                 httpBackend.whenJSONP(buildQuery(testUser)).respond({});
                 routeParams.user = testUser;
-                userCtrl = controller(UserCtrl, {$scope: scope});
+                ctrl = controller(UserCtrl, {$scope: scope});
                 httpBackend.flush(1);
                 verifyRequestAndModel = buildVerifyRequestAndModel(httpBackend,
                     routeParams, controller, scope, buildQuery, UserCtrl);
@@ -117,15 +119,6 @@ describe('GitHub Contributors controllers', function () {
     });
 
     describe('RepoListCtrl', function () {
-        var rootScope,
-            scope,
-            controller,
-            httpBackend,
-            routeParams,
-            buildQuery,
-            repoListCtrl,
-            verifyRequestAndModel;
-
         beforeEach(module('ghContrib.services'));
 
         beforeEach(inject(
@@ -141,7 +134,7 @@ describe('GitHub Contributors controllers', function () {
                 routeParams = $routeParams;
                 httpBackend.whenJSONP(buildQuery(testUser)).respond({});
                 routeParams.user = testUser;
-                repoListCtrl = controller(RepoListCtrl, {$scope: scope});
+                ctrl = controller(RepoListCtrl, {$scope: scope});
                 httpBackend.flush(1);
                 verifyRequestAndModel = buildVerifyRequestAndModel(httpBackend,
                     routeParams, controller, scope, buildQuery, RepoListCtrl);
@@ -162,7 +155,7 @@ describe('GitHub Contributors controllers', function () {
 
             routeParams.user = anotherUser;
             scope = rootScope.$new();
-            repoListCtrl = controller(RepoListCtrl, {$scope: scope});
+            ctrl = controller(RepoListCtrl, {$scope: scope});
             httpBackend.flush(1);
             expect(scope.user).toEqual(anotherUser);
         });
@@ -179,17 +172,6 @@ describe('GitHub Contributors controllers', function () {
     });
 
     describe('RepoCtrl', function () {
-        var rootScope,
-            scope,
-            controller,
-            httpBackend,
-            routeParams,
-            buildQuery,
-            repoCtrl,
-            testRepo = "angular",
-            anotherRepo = "baz",
-            verifyRequestAndModel;
-
         beforeEach(module('ghContrib.services'));
 
         beforeEach(inject(
@@ -207,7 +189,7 @@ describe('GitHub Contributors controllers', function () {
                 httpBackend.whenJSONP(buildQuery(testUser)).respond({});
                 routeParams.user = testUser;
                 routeParams.repo = testRepo;
-                repoCtrl = controller(RepoCtrl, {$scope: scope});
+                ctrl = controller(RepoCtrl, {$scope: scope});
                 httpBackend.flush(1);
                 verifyRequestAndModel = buildVerifyRequestAndModel(httpBackend,
                     routeParams, controller, scope, buildQuery, RepoCtrl);
