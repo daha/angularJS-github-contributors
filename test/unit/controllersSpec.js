@@ -5,14 +5,8 @@
 
 describe('GitHub Contributors controllers', function () {
     'use strict';
-    var rootScope,
-        scope,
-        controller,
-        httpBackend,
-        routeParams,
-        buildQuery,
-        ctrl,
-        verifyRequestAndModel,
+    var rootScope, scope, controller, httpBackend, routeParams, buildQuery,
+        ctrl, verifyRequestAndModel,
         testUser = 'foo',
         anotherUser = 'bar',
         testRepo = "angular",
@@ -164,12 +158,12 @@ describe('GitHub Contributors controllers', function () {
 
     describe('RepoCtrl', function () {
         beforeEach(function () {
-            buildQuery = function (user) {
+            buildQuery = function (user, repo) {
                 return 'https://api.github.com/repos/' +
-                    user + '/' + testRepo +
+                    user + '/' + repo +
                     '?callback=JSON_CALLBACK&per_page=100';
             };
-            httpBackend.whenJSONP(buildQuery(testUser)).respond({});
+            httpBackend.whenJSONP(buildQuery(testUser, testRepo)).respond({});
             routeParams.user = testUser;
             routeParams.repo = testRepo;
             ctrl = controller(RepoCtrl, {$scope: scope});
@@ -187,26 +181,27 @@ describe('GitHub Contributors controllers', function () {
 
         it('should request for user data when created and store it in repos',
             function () {
-                verifyRequestAndModel(buildQuery(testUser), testUser,
+                verifyRequestAndModel(buildQuery(testUser, testRepo), testUser,
                     'repoInfo', fakeData);
             });
 
         it('should not use hardcoded requests or data in repos',
             function () {
-                verifyRequestAndModel(buildQuery(anotherUser), anotherUser,
-                    'repoInfo', otherFakeData);
+                routeParams.repo = anotherRepo;
+                verifyRequestAndModel(buildQuery(anotherUser, anotherRepo),
+                    anotherUser, 'repoInfo', otherFakeData);
             });
     });
 
     describe('ContribListCtrl', function () {
 
         beforeEach(function () {
-            buildQuery = function (user) {
+            buildQuery = function (user, repo) {
                 return 'https://api.github.com/repos/' +
-                    user + '/' + testRepo + '/contributors' +
+                    user + '/' + repo + '/contributors' +
                     '?callback=JSON_CALLBACK&per_page=100';
             };
-            httpBackend.whenJSONP(buildQuery(testUser)).respond({});
+            httpBackend.whenJSONP(buildQuery(testUser, testRepo)).respond({});
             routeParams.user = testUser;
             routeParams.repo = testRepo;
             ctrl = controller(ContribListCtrl, {$scope: scope});
@@ -216,14 +211,15 @@ describe('GitHub Contributors controllers', function () {
 
         it('should request for user data when created and store it in repos',
             function () {
-                verifyRequestAndModel(buildQuery(testUser), testUser,
+                verifyRequestAndModel(buildQuery(testUser, testRepo), testUser,
                     'contributors', fakeData);
             });
 
         it('should not use hardcoded requests or data in repos',
             function () {
-                verifyRequestAndModel(buildQuery(anotherUser), anotherUser,
-                    'contributors', otherFakeData);
+                routeParams.repo = anotherRepo;
+                verifyRequestAndModel(buildQuery(anotherUser, anotherRepo),
+                    anotherUser, 'contributors', otherFakeData);
             });
     });
 });
