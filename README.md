@@ -20,15 +20,15 @@ Demo
 ----
 View the app [AngularJS GitHub Contributors].
 
-License
--------
-* All my code is licensed under the [Modified BSD License].
-* The original app is licensed under the [BSD License].
-* AngularJS is licensed under the [MIT license].
+Licenses
+--------
+* All my code is licensed under the [Modified BSD License], excluding
+  the lib directories.
+* The html code in the partials directory is also licensed under the same
+  [BSD License] as the original app.
 
 [GitHub Contributors]: http://yuilibrary.com/yui/docs/app/app-contributors.html
 [AngularJS]: http://angularjs.org/
 [AngularJS GitHub Contributors]: http://daha.github.com/angularJS-github-contributors
 [Modified BSD License]: https://github.com/daha/angularJS-github-contributors/blob/master/LICENSE
 [BSD License]: http://yuilibrary.com/license/
-[MIT license]: https://github.com/angular/angular.js/blob/master/LICENSE
