@@ -6,7 +6,7 @@ REM Requirements:
 REM - Java (http://www.java.com)
 
 set BASE_DIR=%~dp0
-set PORT=9877
+set PORT=9878
 
 echo "Starting JsTestDriver Server (http://code.google.com/p/js-test-driver/)"
 echo "Please open the following url and capture one or more browsers:"

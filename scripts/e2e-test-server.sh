@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BASE_DIR=`dirname $0`
-PORT=9877
+PORT=9878
 
 echo "Starting JsTestDriver Server (http://code.google.com/p/js-test-driver/)"
 echo "Please open the following url and capture one or more browsers:"
