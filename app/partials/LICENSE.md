@@ -1,4 +1,4 @@
-The code html structure in the files in this directory has been stolen from http://yuilibrary.com/yui/docs/app/app-contributors.html, licensed under the BSD License, see below:
+The code html structure in the files in this directory has been copied from http://yuilibrary.com/yui/docs/app/app-contributors.html, licensed under the BSD License, see below:
 
 Software License Agreement (BSD License)
 ========================================
