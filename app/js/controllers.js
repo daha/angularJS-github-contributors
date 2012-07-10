@@ -70,8 +70,8 @@ function UserCtrl($scope, $routeParams, githubResource) {
     $scope.user_info = githubResource.get({user: $routeParams.user, repo: ''});
 
     $scope.publicRepoForms = {
-        '1': 'Public repo',
-        'other': 'Public repos'
+        '1': 'Public Repo',
+        'other': 'Public Repos'
     };
     $scope.followerForms = {
         '1': 'Follower',
