@@ -93,14 +93,15 @@ describe('GitHub Contributors controllers', function () {
         });
 
         it('should define pluralization for Public repo', function () {
-            verifyForms(scope, 'publicRepoForms', 'Public Repo', 'Public Repos');
+            verifyForms(scope, 'publicRepoForms', 'Public Repo',
+                'Public Repos');
         });
 
         it('should define pluralization for Followers', function () {
             verifyForms(scope, 'followerForms', 'Follower', 'Followers');
         });
 
-        it('should request for user data when created and store it in user_info',
+        it('should send request when created and store it in user_info',
             function () {
                 verifyRequestAndModel(buildQuery(testUser), testUser,
                     'user_info', fakeData);
