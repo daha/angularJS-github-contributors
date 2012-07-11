@@ -22,5 +22,33 @@ githubResponses.users_bar = {data: {
     'followers': 1
 }};
 
-githubResponses.users_foo_repos = {data: []};
+githubResponses.users_foo_repos = {data: [
+    {
+        'name': 'repoA',
+        'description': 'aa',
+        'language': 'JavaScript',
+        'watchers': 0,
+        'forks': 1,
+        'full_name': 'foo/repoA',
+        'owner': {'login': 'foo'}
+    },
+    {
+        'name': 'repoB',
+        'description': '',
+        'language': null,
+        'watchers': 1,
+        'forks': 2,
+        'full_name': 'foo/repoB',
+        'owner': {'login': 'foo'}
+    },
+    {
+        'name': 'repoC',
+        'description': '',
+        'language': null,
+        'watchers': 2,
+        'forks': 0,
+        'full_name': 'foo/repoC',
+        'owner': {'login': 'foo'}
+    }
+]};
 githubResponses.users_bar_repos = {data: []};
