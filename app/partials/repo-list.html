@@ -19,7 +19,7 @@ The code code has been adapted to angularJS from YUI3.
             <li class="contributor" ng-repeat="contributor in contributors.data">
                 <!-- TODO: Pluralization in the title of Contributor -->
                 <a class="avatar" ng-href="#/github/{{contributor.login}}/"
-                        title="{{contributor.login}} has {{contributor.contributions}} Contributors">
+                        title="{{contributor.login}} has {{contributor.contributions}} Contributions">
                     <img alt="{{contributor.login}}'s avatar" ng-src="{{contributor.avatar_url}}" />
                     <span class="contributor-name">{{contributor.login}}</span>
                     <span class="contributor-contributions">{{contributor.contributions}}</span>
