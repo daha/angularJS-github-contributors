@@ -16,8 +16,8 @@ githubResponses.users_foo = {data: {
 githubResponses.users_bar = {data: {
     'login': 'bar',
     'name': '',
-    'html_url': 'bar_html_url',
-    'avatar_url': '../test/e2e/bar.png',
+    'html_url': '',
+    'avatar_url': '',
     'public_repos': 1,
     'followers': 1
 }};
