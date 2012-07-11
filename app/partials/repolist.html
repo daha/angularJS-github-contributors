@@ -17,7 +17,7 @@ The code code has been adapted to angularJS from YUI3.
         <li ng-repeat="repo in repos.data | orderBy:'-watchers'" class="repo yui3-g">
             <div class="repo-name yui3-u-2-3">
                 <h3 class="no-toc">
-                    <a href="#/github/{{repo.owner.login}}/{{repo.name}}/">{{repo.name}}</a>
+                    <a href="#/github/{{repo.full_name}}/">{{repo.name}}</a>
                 </h3>
                 <p class="repo-desc">{{repo.description}}</p>
             </div>
