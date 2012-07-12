@@ -93,8 +93,8 @@ describe('GitHub Contributors controllers', function () {
         });
 
         it('should define pluralization for Public repo', function () {
-            verifyForms(scope, 'publicRepoForms', 'Public Repo',
-                'Public Repos');
+            verifyForms(scope, 'publicRepoForms', 'Public repo',
+                'Public repos');
         });
 
         it('should define pluralization for Followers', function () {

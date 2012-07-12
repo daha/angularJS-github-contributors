@@ -83,7 +83,7 @@ describe('GitHub Contributors with mocked data', function () {
 
                 it('should display user stats', function () {
                     expect(element('.user-repos').text())
-                        .toMatch(/\b2\s*Public Repos\b/);
+                        .toMatch(/\b2\s*Public repos\b/);
                     expect(element('.user-followers').text())
                         .toMatch(/\b2\s*Followers\b/);
                 });
@@ -153,7 +153,7 @@ describe('GitHub Contributors with mocked data', function () {
 
             it('should display user stats', function () {
                 expect(element('.user-repos').text())
-                    .toMatch(/\b1\s*Public Repo\b/);
+                    .toMatch(/\b1\s*Public repo\b/);
                 expect(element('.user-followers').text())
                     .toMatch(/\b1\s*Follower\b/);
             });
