@@ -52,3 +52,29 @@ githubResponses.users_foo_repos = {data: [
     }
 ]};
 githubResponses.users_bar_repos = {data: []};
+
+githubResponses.repos_foo_repoA = {data: {
+    'owner': {
+        'login': 'foo',
+        'avatar_url': '../test/e2e/foo.png'
+    },
+    'html_url': 'repoA_url',
+    'name': 'repoA',
+    'watchers': 0,
+    'forks': 1
+}};
+
+githubResponses.repos_foo_repoA_contributors = {data: []};
+
+githubResponses.repos_foo_repoB = {data: {
+    'owner': {
+        'login': 'foo',
+        'avatar_url': '../test/e2e/foo.png'
+    },
+    'html_url': '',
+    'name': 'repoB',
+    'watchers': 1,
+    'forks': 2
+}};
+
+githubResponses.repos_foo_repoB_contributors = {data: []};

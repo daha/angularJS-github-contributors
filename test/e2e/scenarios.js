@@ -58,6 +58,14 @@ describe('GitHub Contributors with mocked data', function () {
                         expect(browser().location().url()).toBe('/');
                     });
 
+                it('should transition form user page to repoC page',
+                    function () {
+                        element('li:nth-child(3) a').click();
+                        expect(browser().location().url())
+                            .toBe('/github/foo/repoA/');
+                        expect(element('.repo-page').count()).toBe(1);
+                    });
+
                 it('should display github link', function () {
                     expect(element('.view-on-github a').attr('href'))
                         .toBe('foo_html_url');
@@ -148,6 +156,46 @@ describe('GitHub Contributors with mocked data', function () {
                     .toMatch(/\b1\s*Public Repo\b/);
                 expect(element('.user-followers').text())
                     .toMatch(/\b1\s*Follower\b/);
+            });
+        });
+
+        describe('repo page (foo/repoA)', function () {
+            beforeEach(function () {
+                browser().navigateTo('#/github/foo/repoA/');
+            });
+
+            it('should transition back to the user page (foo)', function () {
+                element('.back a').click();
+                expect(browser().location().url()).toBe('/github/foo/');
+
+            });
+
+            it('should display repo info', function () {
+                expect(element('.back a').attr('href')).toBe('#/github/foo/');
+                expect(element('.view-on-github a').attr('href'))
+                    .toBe('repoA_url');
+                expect(element('.avatar img').attr('src'))
+                    .toBe('../test/e2e/foo.png');
+                expect(element('.avatar img').attr('alt'))
+                    .toBe('foo\'s avatar');
+                expect(element('.user-login').text()).toBe('foo');
+                expect(element('.repo-name').text()).toBe('repoA');
+
+                expect(element('.repo-watchers').text())
+                    .toMatch(/0\s*Watchers\b/);
+                expect(element('.repo-forks').text()).toMatch(/1\s*Fork\b/);
+            });
+        });
+
+        describe('repo page (foo/repoB)', function () {
+            beforeEach(function () {
+                browser().navigateTo('#/github/foo/repoB/');
+            });
+
+            it('should display repo info', function () {
+                expect(element('.repo-watchers').text())
+                    .toMatch(/1\s*Watcher\b/);
+                expect(element('.repo-forks').text()).toMatch(/2\s*Forks\b/);
             });
         });
     });
