@@ -10,5 +10,5 @@ sed -e 's/ng-app="ghContrib"/ng-app="ghContribE2E"/' \
 ' -e '/js\/app.js/a \
         <script src="../test/e2e/github-responses.js"></script>
 ' -e '/js\/app.js/a \
-        <script src="js/app-e2e.js"></script>
+        <script src="../test/e2e/app-e2e.js"></script>
 ' $infile > $outfile
