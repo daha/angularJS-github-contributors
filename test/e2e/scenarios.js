@@ -72,9 +72,10 @@ describe('GitHub Contributors with mocked data', function () {
                 });
 
                 it('should display user info', function () {
-                    expect(element('.user-avatar img').attr('src'))
+                    var userImgElement = element('.user-avatar img');
+                    expect(userImgElement.attr('src'))
                         .toBe('../test/e2e/foo.png');
-                    expect(element('.user-avatar img').attr('alt'))
+                    expect(userImgElement.attr('alt'))
                         .toBe('foo\'s avatar');
 
                     expect(element('.user-login').text()).toMatch(/\bfoo\b/);
@@ -89,10 +90,11 @@ describe('GitHub Contributors with mocked data', function () {
                 });
 
                 it('should show all user repos in correct order', function () {
+                    var repoNameLink = repeater('.repo-name a');
                     expect(repeater('.repo').count()).toBe(3);
-                    expect(repeater('.repo-name a').row(0)).toEqual(['repoC']);
-                    expect(repeater('.repo-name a').row(1)).toEqual(['repoB']);
-                    expect(repeater('.repo-name a').row(2)).toEqual(['repoA']);
+                    expect(repoNameLink.row(0)).toEqual(['repoC']);
+                    expect(repoNameLink.row(1)).toEqual(['repoB']);
+                    expect(repoNameLink.row(2)).toEqual(['repoA']);
 
                     expect(element('li:nth-child(1) a').attr('href'))
                         .toBe("#/github/foo/repoC/");
@@ -103,21 +105,23 @@ describe('GitHub Contributors with mocked data', function () {
                 });
 
                 it('should show description if available', function () {
-                    expect(repeater('.repo-desc').row(0)).toEqual(['']);
-                    expect(repeater('.repo-desc').row(2)).toEqual(['aa']);
+                    var repoDesc = repeater('.repo-desc');
+                    expect(repoDesc.row(0)).toEqual(['']);
+                    expect(repoDesc.row(2)).toEqual(['aa']);
                 });
 
                 it('should show language if available', function () {
-                    expect(repeater('.repo-lang').row(0)).toEqual(['']);
-                    expect(repeater('.repo-lang').row(2))
-                        .toEqual(['JavaScript']);
+                    var repoLang = repeater('.repo-lang');
+                    expect(repoLang.row(0)).toEqual(['']);
+                    expect(repoLang.row(2)).toEqual(['JavaScript']);
                 });
 
-
                 it('should show watchers and forks', function () {
-                    expect(repeater('.repo-watchers').row(0)).toEqual(['2']);
-                    expect(repeater('.repo-watchers').row(1)).toEqual(['1']);
-                    expect(repeater('.repo-watchers').row(2)).toEqual(['0']);
+                    var repoWatchers = repeater('.repo-watchers'),
+                        repoForks = repeater('.repo-forks');
+                    expect(repoWatchers.row(0)).toEqual(['2']);
+                    expect(repoWatchers.row(1)).toEqual(['1']);
+                    expect(repoWatchers.row(2)).toEqual(['0']);
 
                     expect(element('li:nth-child(1) .repo-watchers').text())
                         .toMatch(/\bWatchers\b/);
@@ -126,9 +130,9 @@ describe('GitHub Contributors with mocked data', function () {
                     expect(element('li:nth-child(3) .repo-watchers').text())
                         .toMatch(/\bWatchers\b/);
 
-                    expect(repeater('.repo-forks').row(0)).toEqual(['0']);
-                    expect(repeater('.repo-forks').row(1)).toEqual(['2']);
-                    expect(repeater('.repo-forks').row(2)).toEqual(['1']);
+                    expect(repoForks.row(0)).toEqual(['0']);
+                    expect(repoForks.row(1)).toEqual(['2']);
+                    expect(repoForks.row(2)).toEqual(['1']);
 
                     expect(element('li:nth-child(1) .repo-forks').text())
                         .toMatch(/\bForks\b/);
@@ -243,6 +247,11 @@ describe('GitHub Contributors with mocked data', function () {
                 expect(element('.repo-watchers').text())
                     .toMatch(/1\s*Watcher\b/);
                 expect(element('.repo-forks').text()).toMatch(/2\s*Forks\b/);
+            });
+
+            it('should display number of Contributors', function () {
+                expect(element('h2').text()).toBe('Project Contributors (0)');
+                expect(repeater('.contributor').count()).toBe(0);
             });
         });
     });
