@@ -11,12 +11,12 @@ http://yuilibrary.com/license/
 The code code has been adapted to angularJS from YUI3.
 -->
 <div ng-controller="RepoListCtrl">
-    <h2 class="no-toc">Public Repositories</h2>
+    <h2>Public Repositories</h2>
 
     <ul class="repos">
         <li ng-repeat="repo in repos.data | orderBy:'-watchers'" class="repo yui3-g">
             <div class="repo-name yui3-u-2-3">
-                <h3 class="no-toc">
+                <h3>
                     <a href="#/github/{{repo.full_name}}/">{{repo.name}}</a>
                 </h3>
                 <p class="repo-desc">{{repo.description}}</p>
