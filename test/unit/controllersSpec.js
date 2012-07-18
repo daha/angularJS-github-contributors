@@ -45,7 +45,7 @@ describe('GitHub Contributors controllers', function () {
         expect(scope[model].other).toEqual(other);
     }
 
-    beforeEach(module('ghContrib.services'));
+    beforeEach(module('githubContributors.services'));
     beforeEach(inject(
         function ($rootScope, $controller, $routeParams, $httpBackend) {
             rootScope = $rootScope;

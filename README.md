@@ -13,7 +13,7 @@ Known differenses between this port and the original app:
 * No pluralization of the word _contributor_ in the on hover title, of
   the contributors thumbs.
 * One more json query to GitHub, 4 instead of 3.
-* Fewer lines of javascript code, 91 compared to 387, excluding lines
+* Fewer lines of javascript code, 93 compared to 387, excluding lines
   with comments and empty lines!
 
 Demo

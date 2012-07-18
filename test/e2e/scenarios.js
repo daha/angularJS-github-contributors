@@ -141,7 +141,6 @@ describe('GitHub Contributors with mocked data', function () {
                     expect(element('li:nth-child(3) .repo-forks').text())
                         .toMatch(/\bFork\b/);
                 });
-
             });
 
         describe('user bar (no name, and 1 repo and 1 follower)', function () {

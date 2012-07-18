@@ -34,7 +34,7 @@
 /*globals angular,SearchCtrl */
 
 // Declare app level module which depends on filters, and services
-angular.module('ghContrib', ['ghContrib.services']).
+angular.module('githubContributors', ['githubContributors.services']).
     config(['$routeProvider', function ($routeProvider) {
         'use strict';
         $routeProvider.when('/', {

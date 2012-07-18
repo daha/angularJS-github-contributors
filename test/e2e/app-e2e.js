@@ -1,6 +1,6 @@
 /*globals angular,githubResponses */
 
-angular.module('ghContribE2E', ['ghContrib', 'ngMockE2E'])
+angular.module('githubContributorsE2E', ['githubContributors', 'ngMockE2E'])
     .run(function ($httpBackend) {
         'use strict';
         $httpBackend.whenGET(/^partials\/[\s]*/).passThrough();
