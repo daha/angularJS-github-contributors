@@ -167,7 +167,6 @@ describe('GitHub Contributors with mocked data', function () {
             it('should transition back to the user page (foo)', function () {
                 element('.back a').click();
                 expect(browser().location().url()).toBe('/github/foo/');
-
             });
 
             it('should display repo info', function () {
@@ -184,6 +183,54 @@ describe('GitHub Contributors with mocked data', function () {
                 expect(element('.repo-watchers').text())
                     .toMatch(/0\s*Watchers\b/);
                 expect(element('.repo-forks').text()).toMatch(/1\s*Fork\b/);
+            });
+
+            it('should display number of Contributors', function () {
+                expect(element('h2').text()).toBe('Project Contributors (2)');
+                expect(repeater('.contributor').count()).toBe(2);
+            });
+
+            it('should display contributors (first contributor)', function () {
+                expect(repeater('.contributor .contributor-name').row(0))
+                    .toEqual(['foo']);
+                expect(repeater('.contributor .contributor-contributions')
+                    .row(0)).toEqual(['10']);
+
+                expect(element('li:nth-child(1) a').attr('title'))
+                        .toBe('foo has 10 Contributions');
+
+                expect(element('li:nth-child(1) img').attr('alt'))
+                    .toBe('foo\'s avatar');
+
+                expect(element('li:nth-child(1) img').attr('src'))
+                    .toBe('../test/e2e/foo.png');
+            });
+
+            it('should display contributors (second contributor)', function () {
+                expect(repeater('.contributor .contributor-name').row(1))
+                    .toEqual(['bar']);
+                expect(repeater('.contributor .contributor-contributions')
+                    .row(1)).toEqual(['1']);
+
+                // TODO: It should be '1 Contribution'
+                expect(element('li:nth-child(2) a').attr('title'))
+                    .toBe('bar has 1 Contributions');
+
+                expect(element('li:nth-child(2) img').attr('alt'))
+                    .toBe('bar\'s avatar');
+
+                expect(element('li:nth-child(2) img').attr('src'))
+                    .toBe('');
+            });
+
+            it('should transition to contributor on click (foo)', function () {
+                element('li:nth-child(1) a').click();
+                expect(browser().location().url()).toBe('/github/foo/');
+            });
+
+            it('should transition to contributor on click (bar)', function () {
+                element('li:nth-child(2) a').click();
+                expect(browser().location().url()).toBe('/github/bar/');
             });
         });
 

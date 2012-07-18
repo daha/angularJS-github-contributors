@@ -64,7 +64,18 @@ githubResponses.repos_foo_repoA = {data: {
     'forks': 1
 }};
 
-githubResponses.repos_foo_repoA_contributors = {data: []};
+githubResponses.repos_foo_repoA_contributors = {data: [
+    {
+        'login': 'foo',
+        'contributions': 10,
+        'avatar_url': '../test/e2e/foo.png'
+    },
+    {
+        'login': 'bar',
+        'contributions': 1,
+        'avatar_url': ''
+    }
+]};
 
 githubResponses.repos_foo_repoB = {data: {
     'owner': {
