@@ -45,7 +45,7 @@ var watchForms = {
 function SearchCtrl($scope, $location) {
     'use strict';
 
-    $scope.user = "angular";
+    $scope.user = 'angular';
 
     $scope.userSearch = function () {
         $location.path(['', 'github', $scope.user, ''].join('/'));
@@ -84,9 +84,9 @@ function RepoCtrl($scope, $routeParams, githubResource) {
     'use strict';
 
     $scope.repoInfo = githubResource.get({
-        "query": "repos",
-        "user": $routeParams.user,
-        "repo": $routeParams.repo
+        'query': 'repos',
+        'user': $routeParams.user,
+        'repo': $routeParams.repo
     });
 
     $scope.watchForms = watchForms;
@@ -98,10 +98,10 @@ function ContribListCtrl($scope, $routeParams, githubResource) {
     'use strict';
 
     $scope.contributors = githubResource.get({
-        "query": "repos",
-        "user": $routeParams.user,
-        "repo": $routeParams.repo,
-        "spec": "contributors"
+        'query': 'repos',
+        'user': $routeParams.user,
+        'repo': $routeParams.repo,
+        'spec': 'contributors'
     });
 }
 ContribListCtrl.$inject = ['$scope', '$routeParams', 'githubResource'];
