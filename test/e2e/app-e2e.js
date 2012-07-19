@@ -10,10 +10,13 @@ angular.module('githubContributorsE2E', ['githubContributors', 'ngMockE2E'])
         $httpBackend.whenJSONP(/https:\/\/api\.github\.com\/users\/bar\?/)
             .respond(githubResponses.users_bar);
 
-        $httpBackend.whenJSONP(/https:\/\/api\.github\.com\/users\/foo\/repos\?/)
-            .respond(githubResponses.users_foo_repos);
-        $httpBackend.whenJSONP(/https:\/\/api\.github\.com\/users\/bar\/repos\?/)
-            .respond(githubResponses.users_bar_repos);
+        $httpBackend.whenJSONP(
+            /https:\/\/api\.github\.com\/users\/foo\/repos\?/
+        ).respond(githubResponses.users_foo_repos);
+
+        $httpBackend.whenJSONP(
+            /https:\/\/api\.github\.com\/users\/bar\/repos\?/
+        ).respond(githubResponses.users_bar_repos);
 
         $httpBackend.whenJSONP(
             /https:\/\/api\.github\.com\/repos\/foo\/repoA\?/

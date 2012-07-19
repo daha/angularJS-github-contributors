@@ -97,11 +97,11 @@ describe('GitHub Contributors with mocked data', function () {
                     expect(repoNameLink.row(2)).toEqual(['repoA']);
 
                     expect(element('li:nth-child(1) a').attr('href'))
-                        .toBe("#/github/foo/repoC/");
+                        .toBe('#/github/foo/repoC/');
                     expect(element('li:nth-child(2) a').attr('href'))
-                        .toBe("#/github/foo/repoB/");
+                        .toBe('#/github/foo/repoB/');
                     expect(element('li:nth-child(3) a').attr('href'))
-                        .toBe("#/github/foo/repoA/");
+                        .toBe('#/github/foo/repoA/');
                 });
 
                 it('should show description if available', function () {
