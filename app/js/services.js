@@ -32,7 +32,7 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 // OF THE POSSIBILITY OF SUCH DAMAGE.
 /*globals angular */
-
+'use strict';
 angular.module('githubContributors.services', ['ngResource'])
     .factory('githubResource', function($resource) {
         return $resource('https://api.github.com/:query/:user/:repo/:spec', {
