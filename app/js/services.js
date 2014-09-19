@@ -34,6 +34,7 @@
 /*globals angular */
 'use strict';
 angular.module('githubContributors.services', ['ngResource'])
+    'use strict';
     .factory('githubResource', function($resource) {
         return $resource('https://api.github.com/:query/:user/:repo/:spec', {
             'query': 'users',
